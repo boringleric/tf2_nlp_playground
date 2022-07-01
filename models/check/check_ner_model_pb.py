@@ -2,7 +2,7 @@ import tensorflow as tf
 from bert4keras.tokenizers import Tokenizer
 from models.utils.keras_to_pb import wrap_frozen_graph
 
-def load_ner_pb_and_test(save_pb_path, text, categories, vocab_file='/home/chenlei/ModelZoo/TF_Model/chinese_roberta_wwm_ext_L-12_H-768_A-12/vocab.txt'): 
+def load_ner_pb_and_test(save_pb_path, text, categories, vocab_file='./ModelZoo/TF_Model/chinese_roberta_wwm_ext_L-12_H-768_A-12/vocab.txt'): 
 
     tokenizer = Tokenizer(vocab_file, do_lower_case=True)
 

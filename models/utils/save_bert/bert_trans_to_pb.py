@@ -19,7 +19,7 @@ __all__ = ['PoolingStrategy', 'optimize_graph']
 
 class args():
     def __init__(self, pooling_layer=-2, model_dir="", graph_tmp_dir="", pooling_strategy="", 
-                 config_path="/home/chenlei/ModelZoo/TF_Model/chinese_roberta_wwm_ext_L-12_H-768_A-12/bert_config.json", 
+                 config_path="./ModelZoo/TF_Model/chinese_roberta_wwm_ext_L-12_H-768_A-12/bert_config.json", 
                  ckpt_name="bert_model.ckpt", tuned_model_dir="", pbname="newpb") -> None:
         self.pooling_layer = pooling_layer
         self.model_dir = model_dir

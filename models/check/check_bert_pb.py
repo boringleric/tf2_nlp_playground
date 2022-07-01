@@ -1,7 +1,7 @@
 from bert4keras.tokenizers import Tokenizer
 import tensorflow 
 
-def load_bert_pb_and_test(pbpath, text='你好啊', vocab_file='/home/chenlei/ModelZoo/TF_Model/chinese_roberta_wwm_ext_L-12_H-768_A-12/vocab.txt'): 
+def load_bert_pb_and_test(pbpath, text='你好啊', vocab_file='./ModelZoo/TF_Model/chinese_roberta_wwm_ext_L-12_H-768_A-12/vocab.txt'): 
     '''
     尝试加载pbpath的文件，并输出text的embedding。
     参照bert-serving-start -pooling_layer=-2 -model_dir=/tmp_bert -num_worker=1 -graph_tmp_dir=/tmp -pooling_strategy=REDUCE_MEAN
