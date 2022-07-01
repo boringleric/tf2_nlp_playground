@@ -116,10 +116,10 @@ def save_weights_as_checkpoint(model, filename, mapping=None, dtype=None):
             for name, value in zip(variables, tmpval):
                 variable, value = model.create_variable(name, value, dtype)
                 all_variables.append(variable)
+                all_values.append(value)
             cnt += 1
 
         with tf.compat.v1.Session() as sess:
-            sess.run(tf.compat.v1.global_variables_initializer())
             K.batch_set_value(zip(all_variables, all_values))
             saver = tf.compat.v1.train.Saver()
             saver.save(sess, filename)
