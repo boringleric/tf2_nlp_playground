@@ -1,5 +1,7 @@
 # tf2_nlp_playground
 
+# WARNING:目前pb有误，待调试！
+
 存放工作学习中整理的tf代码，目前功能有：
 
 · 使用分类方式，训练bert向量，并将分类模型和bert向量分别导出tf1所需的pb文件；    
