@@ -14,7 +14,7 @@ from tensorflow.keras.models import Model
 
 import tensorflow
 from pathlib import Path
-import shutil, os 
+import shutil, os, random
 
 class data_generator(DataGenerator):
     """
@@ -93,7 +93,7 @@ class nerModel(baseModel):
     '''
     分类训练模型，可用于训练词向量以及分类模型
     '''
-    def __init__(self, categories, config_path, dict_path, learning_rate=2e-5, checkpoint_path=None, modeltype='bert', return_keras_model=False):
+    def __init__(self, categories, config_path, dict_path, learning_rate=2e-5, checkpoint_path=None, modeltype='bert', return_keras_model=False, seed=42):
         # Input shape
         self.config_path = config_path
         self.dict_path = dict_path 
@@ -102,6 +102,8 @@ class nerModel(baseModel):
         self.return_keras_model = return_keras_model
         self.learning_rate = learning_rate  
         self.categories = categories     
+        self.seed = seed
+        self.set_seed()
         
         # Build and compile the model
         self.tokenizer = Tokenizer(dict_path, do_lower_case=True)
@@ -115,6 +117,9 @@ class nerModel(baseModel):
                     metrics=[self.CRF.sparse_accuracy]
                     )
 
+    def set_seed(self):            
+        tensorflow.random.set_seed(self.seed)
+        random.seed(self.seed)
 
     def build_model(self, bert_layers=12, crf_lr_multiplier=100):
 

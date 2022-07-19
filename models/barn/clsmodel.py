@@ -11,7 +11,7 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.models import Model
 import tensorflow
 from pathlib import Path
-import shutil, os 
+import shutil, os, random
 
 class data_generator(DataGenerator):
     """
@@ -41,7 +41,7 @@ class clsModel(baseModel):
     '''
     分类训练模型，可用于训练词向量以及分类模型
     '''
-    def __init__(self, num_classes, config_path, dict_path, learning_rate=2e-5, checkpoint_path=None, modeltype='bert', return_keras_model=False):
+    def __init__(self, num_classes, config_path, dict_path, learning_rate=2e-5, checkpoint_path=None, modeltype='bert', return_keras_model=False, seed=42):
         # Input shape
         self.config_path = config_path
         self.dict_path = dict_path
@@ -50,6 +50,8 @@ class clsModel(baseModel):
         self.return_keras_model = return_keras_model
         self.num_classes = num_classes
         self.learning_rate = learning_rate
+        self.seed = seed
+        self.set_seed()
 
         optimizer = Adam(learning_rate)
         losses = ['sparse_categorical_crossentropy']
@@ -62,7 +64,10 @@ class clsModel(baseModel):
                     optimizer=optimizer,
                     metrics=['sparse_categorical_accuracy']
                     )
-
+                    
+    def set_seed(self):            
+        tensorflow.random.set_seed(self.seed)
+        random.seed(self.seed)
 
     def build_model(self):
 

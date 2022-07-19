@@ -51,3 +51,24 @@ nermod.export_all_model('./model_pool')
 # 测试
 ret = nermod.predict('宁波蚂蚁帝国教育科技有限公司')
 print(ret)
+
+## ------------------- emo cls --------------------------------
+from models.data_process.preprocess import load_sem_data
+
+model_name = 'nezha_base_wwm'
+config_path = './ModelZoo/TF_Model/' + model_name + '/bert_config.json'
+checkpoint_path = './ModelZoo/TF_Model/' + model_name + '/bert_model.ckpt'
+dict_path = './ModelZoo/TF_Model/' + model_name + '/vocab.txt'
+
+real_text_dict = {}
+all_data, all_labels = [], []
+train_data, valid_data = [], []
+
+
+all_data, all_labels, label_dict = load_sem_data([
+    ("./data_bank/emo_test_data.txt", "utf-8", '\t'),  # gb18030    utf-8
+    ])
+
+acgan = clsModel(len(label_dict), config_path, dict_path, checkpoint_path=checkpoint_path,  modeltype='nezha')
+acgan.train([all_data, all_labels], label_dict, epochs=1, batch_size=32, use_kf=True)
+acgan.export_all_model('./model_pool')

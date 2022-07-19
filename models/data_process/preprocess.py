@@ -33,6 +33,33 @@ def load_cls_csv(file_config_list, ischinese=False):
     return all_data, all_labels, label_dict
 
 
+def load_sem_data(file_config_list):
+    '''
+    加载非cls类数据，直接分类
+    '''
+    all_data, all_labels = [], []
+    cnt = 0
+    label_dict = {}
+
+    for config in file_config_list:
+        path, encoding, sep = config
+        df_ext = pd.DataFrame(pd.read_csv(path, encoding=encoding, sep=sep))
+
+        ext_list = df_ext["text"].tolist()
+        ext_std_list = df_ext["label"].tolist()
+
+        for index, content in enumerate(ext_list):   
+            all_data.append(content)
+            all_labels.append(ext_std_list[index])
+
+    label_set = sorted(set(all_labels))
+    for label in label_set:
+        label_dict[label] = cnt
+        cnt += 1
+
+    return all_data, all_labels, label_dict
+
+
 def load_ner_data(filename):
     """
     加载数据
